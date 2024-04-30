@@ -49,4 +49,28 @@ def get_time_series_by_collection_and_index(collection_name, index_name, scale, 
         print(str(e))
         raise Exception(sys.exc_info()[0])
 
+def mask_s2_clouds(image):
+    """Masks clouds in a Sentinel-2 image using the QA band.
+
+    Args:
+        image (ee.Image): A Sentinel-2 image.
+
+    Returns:
+        ee.Image: A cloud-masked Sentinel-2 image.
+    """
+    # Seleccionar la banda de calidad (QA60) de la imagen.
+    qa = image.select('QA60')
+
+    # Los bits 10 y 11 de esta banda indican la presencia de nubes y cirro, respectivamente.
+    # Se crea una máscara para identificar estos bits.
+    cloud_bit_mask = 1 << 10  # Desplazar 1 a la izquierda 10 veces para crear una máscara para el bit de nubes.
+    cirrus_bit_mask = 1 << 11  # Desplazar 1 a la izquierda 11 veces para crear una máscara para el bit de cirro.
+
+    # La máscara se forma comprobando que ambos, el bit de nubes y el bit de cirro, sean 0 (indicando condiciones despejadas).
+    mask = qa.bitwiseAnd(cloud_bit_mask).eq(0).And(qa.bitwiseAnd(cirrus_bit_mask).eq(0))
+
+    # La imagen se actualiza con esta máscara para excluir píxeles nublados y de cirro.
+    # Además, se divide por 10000 para convertir los valores a un rango de 0-1, que es común para las imágenes de reflectancia.
+    return image.updateMask(mask).divide(10000)
+
 
