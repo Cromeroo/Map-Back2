@@ -1,0 +1,24 @@
+# ⚡ Ignorar archivos compilados de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# ⚡ Ignorar archivos de entorno y credenciales
+.env
+credentials.json
+
+# ⚡ Ignorar archivos de Virtualenv (entorno virtual)
+venv/
+Mapa/  # Si tu entorno virtual está dentro de Mapa, ignóralo
+
+# ⚡ Ignorar archivos de logs y caché
+*.log
+logs/
+instance/
+.cache/
+*.sqlite3
+
+# ⚡ Ignorar archivos de configuraciones del editor de código
+.vscode/
+.idea/
+*.swp
