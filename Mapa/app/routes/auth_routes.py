@@ -5,6 +5,10 @@ from app import db
 
 auth_routes = Blueprint("auth_routes", __name__)
 
+@auth_routes.route('/<path:path>', methods=['OPTIONS'])
+def options_handler(path):
+    return '', 204
+
 @auth_routes.route("/register", methods=["POST"])
 def register():
     """Registra un nuevo usuario"""
@@ -37,5 +41,9 @@ def login():
     if not user or not user.check_password(password):
         return jsonify({"error": "Credenciales incorrectas"}), 401
 
-    access_token = create_access_token(identity=user.id)
+    # Ejemplo recomendado:
+    access_token = create_access_token(
+    identity=str(user.id),
+    additional_claims={"role": user.role}
+)
     return jsonify({"token": access_token, "message": "Inicio de sesión exitoso"}), 200

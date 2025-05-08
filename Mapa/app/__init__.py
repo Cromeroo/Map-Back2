@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from config import Config
@@ -6,11 +7,17 @@ from config import Config
 db = SQLAlchemy()
 
 def create_app():
-    """Crea y configura la aplicación Flask"""
     app = Flask(__name__)
     app.config.from_object(Config)
-
-    # 🔥 Asegurarse de inicializar la base de datos correctamente
+    CORS(
+        app,
+        origins=["http://localhost:5173"],
+        supports_credentials=True,
+        allow_headers=["Content-Type", "Authorization"],
+        methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    )
+    app.config.from_object(Config)
+    
     db.init_app(app)
     
     JWTManager(app)
