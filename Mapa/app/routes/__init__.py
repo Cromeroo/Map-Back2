@@ -10,11 +10,12 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
-
-    # Configurar CORS
-    CORS(app, resources={r"/*": {"origins": "http://localhost:5174"}})
-
-    # Configurar caché
+    CORS(
+        app,
+        resources={r"/*": {"origins": ["http://localhost:5173", "http://localhost:4173"]}},        supports_credentials=True,
+        allow_headers=["Content-Type", "Authorization"],
+        methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    )
     cache = Cache(app, config={'CACHE_TYPE': 'simple'})
     db.init_app(app)
 
