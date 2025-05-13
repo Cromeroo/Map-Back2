@@ -22,3 +22,7 @@ instance/
 .vscode/
 .idea/
 *.swp
+backup/
+Mapa/Lib/
+Mapa/Scripts/
+Mapa/include/
