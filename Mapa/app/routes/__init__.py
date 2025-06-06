@@ -12,7 +12,7 @@ def create_app():
     app.config.from_object(Config)
     CORS(
         app,
-        resources={r"/*": {"origins": ["http://localhost:5173", "http://localhost:4173"]}},        supports_credentials=True,
+        resources={r"/*": {"origins": ["http://localhost:5173", "http://localhost:4173", "https://vite-project-six-ecru.vercel.app"]}},        supports_credentials=True,
         allow_headers=["Content-Type", "Authorization"],
         methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
     )
