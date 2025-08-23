@@ -9,7 +9,6 @@ credentials.json
 
 # ⚡ Ignorar archivos de Virtualenv (entorno virtual)
 venv/
-Mapa/  # Si tu entorno virtual está dentro de Mapa, ignóralo
 
 # ⚡ Ignorar archivos de logs y caché
 *.log
@@ -26,3 +25,4 @@ backup/
 Mapa/Lib/
 Mapa/Scripts/
 Mapa/include/
+Lib/
