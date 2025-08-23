@@ -10,7 +10,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    # --- SOLUCIÓN 2 (RECOMENDADA) ---
+    # --- SOLUCIÓN 2 (No sé que hacer :,v) ---
     # Añade estas opciones para que SQLAlchemy maneje mejor las conexiones
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
         'pool_recycle': 280,
@@ -46,8 +46,8 @@ def create_app():
     # -----------------------------------------
 
     # Crea las tablas de la base de datos si no existen
-    with app.app_context():
-        db.create_all()
-        print("✅ Base de datos inicializada correctamente")
+    #with app.app_context():
+    #    db.create_all()
+    #    print("✅ Base de datos inicializada correctamente")
 
     return app
