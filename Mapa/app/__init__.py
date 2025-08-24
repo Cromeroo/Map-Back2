@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from config import Config
+from sqlalchemy import NullPool
 
 db = SQLAlchemy()
 
@@ -37,10 +38,7 @@ def create_app():
     from .routes.auth_routes import auth_routes
     app.register_blueprint(auth_routes, url_prefix="/auth")
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-        "pool_size": 1,          # Mantén solo 2 conexiones abiertas en el pool
-        "max_overflow": 1,       # Permite como máximo 1 conexión extra temporal
-        "pool_recycle": 280,     # Recicla conexiones inactivas
-        "pool_pre_ping": True    # Verifica la conexión antes de usarla
+        "poolclass": NullPool,
     }
     # --- SOLUCIÓN 1 (LA MÁS IMPORTANTE) ---
     # Esta función se ejecutará después de cada petición para cerrar la sesión
