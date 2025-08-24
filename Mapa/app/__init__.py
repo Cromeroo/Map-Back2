@@ -15,8 +15,6 @@ def create_app():
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
         'pool_recycle': 280,           # Recicla conexiones cada 280 segundos
         'pool_pre_ping': True,         # Verifica la conexión antes de usarla
-        'pool_size': 5,                # Máximo 5 conexiones en el pool
-        'max_overflow': 0,             # Sin conexiones adicionales
         'poolclass': NullPool,         # Usa NullPool para cerrar conexiones inmediatamente
     }
     # ----------------------------------------------------------------
